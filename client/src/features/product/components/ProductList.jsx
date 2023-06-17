@@ -5,7 +5,7 @@ import { StarIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/react/20/solid';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
-import { fetchAllProductsAsync, fetchProductsByFiltersAsync, selectAllProducts } from '../productSlice';
+import { fetchProductsByFiltersAsync, selectAllProducts } from '../productSlice';
 
 const sortOptions = [
   { name: 'Best Rating', sort: 'rating', order: 'desc', current: false },
@@ -192,22 +192,32 @@ export function ProductList() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const products = useSelector(selectAllProducts);
   const [filter, setFilter] = useState({});
+  const [sort, setSort] = useState({});
 
   const handleFilter = (e, section, option) => {
-    const newFilter = { ...filter, [section.id]: option.value };
+    const newFilter = { ...filter };
+
+    if (e.target.checked) {
+      if (newFilter[section.id]) {
+        newFilter[section.id].push(option.value);
+      } else {
+        newFilter[section.id] = [option.value];
+      }
+    } else {
+      const index = newFilter[section.id].findIndex((el) => el === option.value);
+      newFilter[section.id].splice(index, 1);
+    }
     setFilter(newFilter);
-    dispatch(fetchProductsByFiltersAsync(newFilter));
   };
 
   const handleSort = (e, option) => {
-    const newFilter = { ...filter, _sort: option.sort, _order: option.order };
-    setFilter(newFilter);
-    dispatch(fetchProductsByFiltersAsync(newFilter));
+    const sort = { _sort: option.sort, _order: option.order };
+    setSort(sort);
   };
 
   useEffect(() => {
-    dispatch(fetchAllProductsAsync());
-  }, [dispatch]);
+    dispatch(fetchProductsByFiltersAsync({ filter, sort }));
+  }, [dispatch, filter, sort]);
 
   return (
     <div>
