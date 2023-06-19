@@ -4,6 +4,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { deleteItemFromCartAsync, selectItems, updateCartAsync } from '../features/cart/cartSlice';
 import { useForm } from 'react-hook-form';
 import { selectLoggedInUser, updateUserAsync } from '../features/auth/authSlice';
+import { createOrderAsync } from '../features/order/orderSlice';
 
 const CheckoutPage = () => {
   const {
@@ -38,7 +39,10 @@ const CheckoutPage = () => {
     setPaymentMethod(e.target.value);
   };
   const handleOrder = (e) => {
-    setPaymentMethod(e.target.value);
+    const order = { items, totalAmount, totalItems, user, paymentMethod, selectedAddress };
+    dispatch(createOrderAsync(order));
+    // TODO: redirect to order-success page
+    // TODO: on server change the stock number of items
   };
 
   return (
@@ -250,7 +254,7 @@ const CheckoutPage = () => {
                           <div>
                             <div className='flex justify-between text-base font-medium text-gray-900'>
                               <h3>
-                                <a>{item.title}</a>
+                                <p>{item.title}</p>
                               </h3>
                               <p className='ml-4'>${item.price}</p>
                             </div>
@@ -301,7 +305,7 @@ const CheckoutPage = () => {
                 <div className='mt-6'>
                   <div
                     onClick={handleOrder}
-                    className='flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700'>
+                    className='flex items-center cursor-pointer justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700'>
                     Order Now
                   </div>
                 </div>
