@@ -7,6 +7,12 @@ const helmet = require('helmet');
 const hpp = require('hpp');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
+const userRoute = require("./routes/user");
+const authRoute = require("./routes/auth");
+const productRoute = require("./routes/product");
+const cartRoute = require("./routes/cart");
+const orderRoute = require("./routes/order");
+// const stripeRoute = require("./routes/stripe");
 
 // Security Middleware
 app.use(cors());
@@ -31,10 +37,16 @@ app.get('/health', (req, res) => {
 });
 
 // All routes
+app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
+app.use("/api/products", productRoute);
+app.use("/api/carts", cartRoute);
+app.use("/api/orders", orderRoute);
+// app.use("/api/checkout", stripeRoute);
 
 // ERROR: client error handling
 app.use('*', (req, res) => {
-  res.status(400).json({Error: 'Route Not Found')})
+  res.status(400).json({Error: 'Route Not Found'})
 });
 
 // export
