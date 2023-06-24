@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import logo from './../../assets/logo.png';
 
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -40,11 +41,7 @@ const Navbar = ({ children }) => {
                   <div className='flex items-center'>
                     <div className='flex-shrink-0'>
                       <Link to='/'>
-                        <img
-                          className='h-8 w-8'
-                          src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500'
-                          alt='Your Company'
-                        />
+                        <img className='h-8 w-8' src={logo} alt='Your Company' />
                       </Link>
                     </div>
                     <div className='hidden md:block'>

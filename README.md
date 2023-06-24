@@ -1,5 +1,15 @@
 # E-commerce
 
+## Project Installation Guide
+
+```sh
+1. npm install
+
+2. json-server --watch data.json --port 8000
+
+3. npm start
+```
+
 Our goal is to build an e-commerce platform that will allow users to buy and sell products. The platform should be built using the MERN stack (MongoDB, Express, React, and Node.js) and should be completed within 1 month.
 
 1. **Features and Functionality: The platform should have the following features and functionality:**

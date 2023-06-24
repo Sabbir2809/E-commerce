@@ -1,6 +1,8 @@
 // Dependencies
 const express = require('express');
+const path = require('path');
 const app = express();
+require('dotenv').config();
 const cors = require('cors');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
@@ -34,7 +36,7 @@ app.get('/health', (req, res) => {
 
 // ERROR: client error handling
 app.use('*', (req, res) => {
-  res.status(400).json({Error: 'Route Not Found')})
+  res.status(400).json({ Error: 'Route Not Found' });
 });
 
 // export
