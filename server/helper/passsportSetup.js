@@ -9,7 +9,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/google/callback",
+      callbackURL: "http://localhost:3000/auth/user/google/callback",
     },
     function (accessToken, refreshToken, profile, done) {
       done(null, profile);
@@ -23,7 +23,7 @@ passport.use(
     {
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: "http://localhost:3000/auth/facebook/callback",
+      callbackURL: "http://localhost:3000/auth/user/facebook/callback",
     },
     function (accessToken, refreshToken, profile, done) {
       done(null, profile);
